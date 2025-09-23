@@ -12,10 +12,12 @@ namespace Company.Route.DAL.Data.Contexts
     internal class CompanyDbContext : DbContext
 
     {
+
         public CompanyDbContext() :base()
-        {
+        {  
         }
 
+       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

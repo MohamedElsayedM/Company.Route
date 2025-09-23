@@ -6,6 +6,9 @@ namespace Company.Route.PL.Controllers
     {
         public IActionResult Index()
         {
+            DepartmentRepository
+
+
             return View();
         }
     }
