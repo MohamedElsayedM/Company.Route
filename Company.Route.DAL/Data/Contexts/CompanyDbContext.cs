@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Company.Route.DAL.Data.Contexts
 {
-    internal class CompanyDbContext : DbContext
+    public class CompanyDbContext : DbContext
 
     {
         public CompanyDbContext() :base()
@@ -28,6 +28,6 @@ namespace Company.Route.DAL.Data.Contexts
             optionsBuilder.UseSqlServer("Server=.; Database=Company.Route; TrustedConnection=True ; TrustServerCertificate= True; ");
         }
 
-        public DbSet<Department> Departemnts { get; set; }
+        public DbSet<Department> Departments { get; set; }
     }
 }
