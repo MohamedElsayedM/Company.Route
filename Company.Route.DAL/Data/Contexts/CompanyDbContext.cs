@@ -12,7 +12,7 @@ namespace Company.Route.DAL.Data.Contexts
     public class CompanyDbContext : DbContext
 
     {
-        public CompanyDbContext() :base()
+        public CompanyDbContext(DbContextOptions<CompanyDbContext> options) :base(options)
         {
         }
 
@@ -23,10 +23,10 @@ namespace Company.Route.DAL.Data.Contexts
             base.OnModelCreating(modelBuilder);
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Server=.; Database=Company.Route; TrustedConnection=True ; TrustServerCertificate= True; ");
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer("Server=.; Database=Company.Route; TrustedConnection=True ; TrustServerCertificate= True; ");
+        //}
 
         public DbSet<Department> Departments { get; set; }
     }
