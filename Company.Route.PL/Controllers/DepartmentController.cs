@@ -1,13 +1,14 @@
-﻿using Company.Route.BLL.Repositories;
+﻿using Company.Route.BLL.Interface;
+using Company.Route.BLL.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Company.Route.PL.Controllers
 {
     public class DepartmentController : Controller
     {
-        private readonly DepartmentRepository _departmentRepository;
+        private readonly IDepartmentRepository _departmentRepository;
 
-        public DepartmentController(DepartmentRepository departmentRepository )
+        public DepartmentController(IDepartmentRepository departmentRepository )
         {
             _departmentRepository = departmentRepository;
         }
