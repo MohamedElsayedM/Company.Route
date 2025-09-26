@@ -18,8 +18,6 @@ namespace Company.Route.PL.Controllers
         public IActionResult Index()
         {
            var departments= _departmentRepository.GetAll();
-
-
             return View(departments);
         }
     }

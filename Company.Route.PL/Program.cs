@@ -17,7 +17,7 @@ namespace Company.Route.PL
             builder.Services.AddScoped<IDepartmentRepository,DepartmentRepository>();
             builder.Services.AddDbContext<CompanyDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-
+          
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
