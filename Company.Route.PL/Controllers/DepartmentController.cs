@@ -17,8 +17,7 @@ namespace Company.Route.PL.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-           var departments= _departmentRepository.GetAll;
-
+           var departments= _departmentRepository.GetAll();
 
             return View(departments);
         }
