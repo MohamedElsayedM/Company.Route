@@ -1,3 +1,4 @@
+using Company.Route.BLL.Interface;
 using Company.Route.BLL.Repositories;
 using Company.Route.DAL.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +14,8 @@ namespace Company.Route.PL
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddScoped<DepartmentRepository>();
-            builder.Services.AddDbContext<CompanyDbContext>(options => {
-                options.UseSqlServer("Server=.; Database=Company.Route; TrustedConnection=True ; TrustServerCertificate= True; ");
-            });
+            builder.Services.AddScoped<IDepartmentRepository,DepartmentRepository>();
+            builder.Services.AddDbContext<CompanyDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")) );
 
 
             var app = builder.Build();
