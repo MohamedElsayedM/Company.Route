@@ -55,7 +55,7 @@ namespace Company.Route.PL.Controllers
 
 
         [HttpGet]
-        public IActionResult Details(int? id)
+        public IActionResult Details(int? id, string viewName ="Details")
         {
             if (id is null)
             {
@@ -63,7 +63,7 @@ namespace Company.Route.PL.Controllers
             } else {
                var department= _departmentRepository.Get(id.Value);
                 if (department is null) return NotFound(new {StatusCode=404 ,Message= $"Department with Id :{id} is not found ."});
-                return View(department);
+                return View(viewName ,department);
             }
   
         }
@@ -71,22 +71,18 @@ namespace Company.Route.PL.Controllers
         [HttpGet]
         public IActionResult Edit(int? id)
         {
-            if (id is null)
-            {
-                return BadRequest("Invalid Id");
-            }
-            else
-            {
-                var department = _departmentRepository.Get(id.Value);
-                if (department is null) return NotFound(new { StatusCode = 404, Message = $"Department with Id :{id} is not found ." });
-                var model = new UpdateDepartmentDto() { 
-                Name= department.Name,
-                Code= department.Code,
-                CreationAt= department.CreationAt,
-                };
-
-                return View(model);
-            }
+            //if (id is null)
+            //{
+            //    return BadRequest("Invalid Id");
+            //}
+            //else
+            //{
+            //    var department = _departmentRepository.Get(id.Value);
+            //    if (department is null) return NotFound(new { StatusCode = 404, Message = $"Department with Id :{id} is not found ." });
+            //    return View(department);
+            //}
+            return Details(id,"Edit");
+            
         }
 
         [HttpPost]
@@ -108,17 +104,18 @@ namespace Company.Route.PL.Controllers
         [HttpGet]
         public IActionResult Delete(int? id)
         {
-            if (id is null)
-            {
-                return BadRequest("Invalid Id");
-            }
-            else
-            {
-                var department = _departmentRepository.Get(id.Value);
-                if (department is null) return NotFound(new { StatusCode = 404, Message = $"Department with Id :{id} is not found ." });
-               
-                return View(department);
-            }
+            //if (id is null)
+            //{
+            //    return BadRequest("Invalid Id");
+            //}
+            //else
+            //{
+            //    var department = _departmentRepository.Get(id.Value);
+            //    if (department is null) return NotFound(new { StatusCode = 404, Message = $"Department with Id :{id} is not found ." });
+
+            //    return View(department);
+            //}
+            return Details(id, "Delete");
         }
 
         [HttpPost]
@@ -126,7 +123,7 @@ namespace Company.Route.PL.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (department.Id != id) return BadRequest();
+                if (id != department.Id ) return BadRequest();
 
                 var Count = _departmentRepository.Delete(department);
                 if (Count > 0) return RedirectToAction("Index");
