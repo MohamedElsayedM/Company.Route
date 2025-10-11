@@ -60,8 +60,9 @@ namespace Company.Route.PL.Controllers
             {                
                 var employee = _employeeRepository.Get(id.Value);
                 if(employee is null) return NotFound(new { StatusCode = 404, Message = $"Employee with Id :{id} is not found ." });
-                var dto = new CreateEmployeeDto
+                var dto = new EmployeeDto
                 {
+                    Id=employee.Id,
                     Name = employee.Name,
                     Address = employee.Address,
                     Age = employee.Age,
