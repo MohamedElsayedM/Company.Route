@@ -1,4 +1,4 @@
-﻿@model UpdateDepartmentDto
+﻿@model Department
 @{
     ViewData["Title"] = "Edit";
 }
@@ -9,7 +9,7 @@
 <br />
 
 <form asp-action="Edit">
-    <div class="my-4">
+     <div class="my-4">
         <label asp-for="Code" class="col-form-label"></label>
         <input asp-for="Code" class="form-control" />
         <span asp-validation-for="Code" class="text-danger"></span>
@@ -19,7 +19,7 @@
         <input asp-for="Name" class="form-control" />
         <span asp-validation-for="Name" class="text-danger"></span>
 
-    </div>
+    </div> 
     <div class="my-4">
         <label asp-for="CreationAt" class="col-form-label"></label>
         <input asp-for="CreationAt" class="form-control" />
