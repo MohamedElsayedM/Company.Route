@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Company.Route.PL.Controllers
 {
-    public class EmployeeController : Controller
+    public class EmployeeController : Controller 
     {
         private readonly IEmployeeRepository _employeeRepository;
         public EmployeeController(IEmployeeRepository employeeRepository)
@@ -87,7 +87,7 @@ namespace Company.Route.PL.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit([FromRoute]int id,CreateEmployeeDto model)
+        public IActionResult Edit([FromRoute]int id,EmployeeDto model)
         {
             if (ModelState.IsValid)
             {
@@ -106,7 +106,7 @@ namespace Company.Route.PL.Controllers
                     CreateAt = model.CreateAt,
                 };
                 var Check = _employeeRepository.Update(employee);
-                if (Check > 0) RedirectToAction("Index");
+                if (Check > 0) return RedirectToAction("Index");
             }
             return View(model);
         }
