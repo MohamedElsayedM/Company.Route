@@ -63,7 +63,13 @@ namespace Company.Route.PL.Controllers
             } else {
                var department= _departmentRepository.Get(id.Value);
                 if (department is null) return NotFound(new {StatusCode=404 ,Message= $"Department with Id :{id} is not found ."});
-                return View(viewName ,department);
+                var dto = new DepartmentDto { 
+                    Id= department.Id,
+                Name= department.Name,
+                Code= department.Code,
+                CreationAt= department.CreationAt,
+                };
+                return View(viewName ,dto);
             }
   
         }
@@ -86,7 +92,7 @@ namespace Company.Route.PL.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit([FromRoute]int id, UpdateDepartmentDto model)
+        public IActionResult Edit([FromRoute]int id, DepartmentDto model)
         {
             if (ModelState.IsValid) { 
                 var department = new Department() { 

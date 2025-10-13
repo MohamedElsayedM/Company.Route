@@ -35,15 +35,8 @@
                     <th>@item.Code</th>
                     <th>@item.Name</th>
                     <th>@item.CreationAt</th>
-                    <th>
-                        <a asp-action="Details" asp-route-id="@item.Id" asp-controller="Department" class="btn btn-warning">Details</a>
-                    </th>
-                    <th>
-                         <a asp-action="Edit" asp-route-id="@item.Id" asp-controller="Department" class="btn btn-success">Edit</a>
-                    </th>
-                    <th>
-                        <a asp-action="Delete" asp-route-id="@item.Id" asp-controller="Department" class="btn btn-danger">Delete</a>
-                    </th>
+                    <partial name="_ButtonsPartialView" model="@item.Id" />
+
 
                 </tr>
             }
