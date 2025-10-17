@@ -125,16 +125,21 @@ namespace Company.Route.PL.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete([FromRoute] int id, Department department)
+        public IActionResult Delete([FromRoute] int id, DepartmentDto model)
         {
             if (ModelState.IsValid)
             {
-                if (id != department.Id ) return BadRequest();
-
+                if (id != model.Id ) return BadRequest();
+                var department = new Department() { 
+                Id= id,
+                Name= model.Name,
+                Code= model.Code,
+                CreationAt=model.CreationAt
+                };
                 var Count = _departmentRepository.Delete(department);
                 if (Count > 0) return RedirectToAction("Index");
             }
-            return View(department);
+            return View(model);
         }
 
     }

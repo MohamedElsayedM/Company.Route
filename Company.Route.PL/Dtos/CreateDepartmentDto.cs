@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Company.Route.DAL.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Company.Route.PL.Dtos
 {
@@ -12,6 +13,7 @@ namespace Company.Route.PL.Dtos
 
         [Required(ErrorMessage = "CreationAt is required")]
         public DateTime CreationAt { get; set; }
+        
 
     }
 }
