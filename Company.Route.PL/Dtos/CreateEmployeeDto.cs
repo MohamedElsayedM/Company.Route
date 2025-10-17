@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Company.Route.DAL.Models;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
  
 namespace Company.Route.PL.Dtos
 {
@@ -23,5 +25,9 @@ namespace Company.Route.PL.Dtos
 
         public DateTime HiringDate { get; set; }
         public DateTime CreateAt { get; set; }
+        
+        [DisplayName("Department")]
+        public int? DepartmentId { get; set; }
+        
     }
 }

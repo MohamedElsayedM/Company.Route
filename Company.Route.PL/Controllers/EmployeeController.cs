@@ -8,21 +8,32 @@ namespace Company.Route.PL.Controllers
     public class EmployeeController : Controller 
     {
         private readonly IEmployeeRepository _employeeRepository;
-        public EmployeeController(IEmployeeRepository employeeRepository)
+        private readonly IDepartmentRepository _departmentRepository;
+
+        public EmployeeController(IEmployeeRepository employeeRepository, IDepartmentRepository departmentRepository)
         {
             _employeeRepository = employeeRepository;
+            _departmentRepository = departmentRepository;
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(string? SearchInput)
         {
-           var Employees= _employeeRepository.GetAll();
-            return View(Employees);
+            IEnumerable<Employee> Employees;
+            if (string.IsNullOrEmpty(SearchInput))
+            {
+                 Employees = _employeeRepository.GetAll();
+            }else { 
+            Employees= _employeeRepository.GetByName(SearchInput);
+                    }
+                return View(Employees);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
+            var departments =_departmentRepository.GetAll();
+            ViewData["departments"] = departments;
            return View();
         }
 
@@ -43,6 +54,8 @@ namespace Company.Route.PL.Controllers
                     IsDeleted = model.IsDeleted,
                     HiringDate = model.HiringDate,
                     CreateAt = model.CreateAt,
+                    DepartmentId = model.DepartmentId
+
                 };
                 var Check = _employeeRepository.Add(employee);
                 if (Check > 0) return RedirectToAction("Index");
@@ -73,6 +86,8 @@ namespace Company.Route.PL.Controllers
                     IsDeleted = employee.IsDeleted,
                     HiringDate = employee.HiringDate,
                     CreateAt = employee.CreateAt,
+                    DepartmentId = employee.DepartmentId,
+                    DepartmentName= employee.Department?.Name ?? "No Department"
                 };
 
                 return View(viewName, dto);
@@ -82,7 +97,9 @@ namespace Company.Route.PL.Controllers
 
         [HttpGet]
         public IActionResult Edit(int? id)
-        {  
+        {
+            var departments = _departmentRepository.GetAll();
+            ViewData["departments"] = departments;
             return Details(id, "Edit");
         }
 
@@ -104,6 +121,7 @@ namespace Company.Route.PL.Controllers
                     IsDeleted = model.IsDeleted,
                     HiringDate = model.HiringDate,
                     CreateAt = model.CreateAt,
+                    DepartmentId = model.DepartmentId,
                 };
                 var Check = _employeeRepository.Update(employee);
                 if (Check > 0) return RedirectToAction("Index");
@@ -119,19 +137,31 @@ namespace Company.Route.PL.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete([FromRoute] int id, Employee employee)
+        public IActionResult Delete([FromRoute] int id, EmployeeDto model)
         {
             if (ModelState.IsValid)
             {
-                if (id != employee.Id) return BadRequest("Invalid Id .");
+                if (id != model.Id) return BadRequest("Invalid Id .");
+                var employee = new Employee() {
+                    Id = id,
+                    Name = model.Name,
+                    Address = model.Address,
+                    Age = model.Age,
+                    Phone = model.Phone,
+                    Email = model.Email,
+                    Salary = model.Salary,
+                    IsActive = model.IsActive,
+                    IsDeleted = model.IsDeleted,
+                    HiringDate = model.HiringDate,
+                    CreateAt = model.CreateAt,
+                    DepartmentId=model.DepartmentId,
+                    
+                };
                 var count = _employeeRepository.Delete(employee);
                 if(count >0) return RedirectToAction("Index");  
             }
-            return View(employee);
+            return View(model);
         }
-
-
-
 
     }
 }

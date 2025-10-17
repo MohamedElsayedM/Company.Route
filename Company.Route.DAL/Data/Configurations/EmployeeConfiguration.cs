@@ -16,7 +16,7 @@ namespace Company.Route.DAL.Data.Configurations
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Salary).HasColumnType("decimal(12,2)");
-
+            builder.HasOne(E => E.Department).WithMany(D=> D.Employees).HasForeignKey(E  => E.DepartmentId).OnDelete(DeleteBehavior.SetNull);
 
         }
     }

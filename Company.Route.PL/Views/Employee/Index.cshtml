@@ -5,9 +5,19 @@
 }
 
 <h1>All Employees</h1>
+<br />
+<br />
 
-<br />
-<br />
+<form class="container m-4">
+    <div class="row" >
+        <div class="col-10">
+            <input type="text" name="SearchInput" placeholder="Search by Name" class="form-control" />
+       </div>
+       <div class="col-2">
+            <input type="submit" value="Search" class="btn btn-success" />
+       </div>
+    </div>
+</form>
 
 <a asp-controller="Employee" asp-action="Create" class="btn btn-primary">Create Employee</a>
 <br />
@@ -29,6 +39,7 @@
                 <th>IsDeleted</th>
                 <th>HiringDate</th>
                 <th>CreateAt</th>
+                <th>Department</th>
                 <th>Details</th>
                 <th>Update</th>
                 <th>Delete</th>
@@ -48,6 +59,12 @@
                     <th>@item.IsDeleted</th>
                     <th>@item.HiringDate</th>
                     <th>@item.CreateAt</th>
+                    @if (item.Department is null){
+                            <th>No Department</th>
+                        }else{
+                            <th>@item.Department.Name</th>
+                             }
+  
                    <partial name="_ButtonsPartialView" model="@item.Id"/>
                 </tr>
             }
